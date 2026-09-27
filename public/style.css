@@ -1,1 +1,174 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  direction: rtl;
+  background: #0b1220;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 25px 16px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #aab4c3;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.search-box {
+  background: #111b2d;
+  border: 1px solid #263653;
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.search-box label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  border-radius: 12px;
+  border: 1px solid #344765;
+  background: #080f1c;
+  color: #fff;
+  font-size: 17px;
+  outline: none;
+  direction: ltr;
+  text-align: left;
+}
+
+.search-box input:focus {
+  border-color: #3b82f6;
+}
+
+.search-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.search-btn:active {
+  transform: scale(0.98);
+}
+
+.search-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 20px;
+  background: #111b2d;
+  border: 1px solid #263653;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.result h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.result-item {
+  background: #0b1220;
+  border: 1px solid #263653;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.result-item:last-child {
+  margin-bottom: 0;
+}
+
+.result-item a {
+  color: #60a5fa;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.result-item a:hover {
+  text-decoration: underline;
+}
+
+.status {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 10px;
+  background: #172338;
+  color: #cbd5e1;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.error {
+  color: #fca5a5;
+  background: #351820;
+  border-color: #7f1d1d;
+}
+
+.success {
+  color: #86efac;
+  background: #10291c;
+  border-color: #166534;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #93c5fd;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .search-box {
+    padding: 14px;
+  }
+}
