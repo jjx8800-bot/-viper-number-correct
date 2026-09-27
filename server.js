@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BRAVE_API_KEY = process.env.BRAVE_API_KEY;
+const BRAVE_API_KEY = "BSAi7b6ThHEsyTThxK0cbfrJ8huwKxN";
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
