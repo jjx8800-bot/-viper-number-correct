@@ -1,1 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
 
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>فحص انتشار رقم الجوال</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0f1115;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    .header {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .description {
+      color: #aeb4c0;
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    .card {
+      background: #191d24;
+      border: 1px solid #292f39;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #3a414d;
+      background: #0e1014;
+      color: white;
+      font-size: 18px;
+      direction: ltr;
+      text-align: left;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 16px;
+      border: 0;
+      border-radius: 12px;
+      background: #2878f0;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+    }
+
+    #status {
+      margin-top: 18px;
+      text-align: center;
+      color: #b7beca;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .result {
+      background: #11141a;
+      border: 1px solid #303743;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+
+    .result-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .result a {
+      color: #55a0ff;
+      word-break: break-all;
+      text-decoration: none;
+    }
+
+    .success {
+      color: #55d68a;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    .footer {
+      text-align: center;
+      color: #777f8c;
+      margin-top: 30px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <div class="logo">🔎</div>
+
+      <h1>فحص انتشار رقم الجوال</h1>
+
+      <p class="description">
+        أدخل رقم الجوال لمعرفة النتائج العامة التي تظهر عنه
+        في محركات البحث.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <label for="phone">
+        رقم الجوال
+      </label>
+
+      <input
+        id="phone"
+        type="tel"
+        inputmode="tel"
+        placeholder="مثال: 9665XXXXXXXX"
+        autocomplete="off"
+      >
+
+      <button id="searchButton" onclick="searchNumber()">
+        🔍 بحث
+      </button>
+
+      <div id="status"></div>
+
+      <div id="results" class="results"></div>
+
+    </div>
+
+    <div class="footer">
+      أداة بحث عامة — النتائج تعتمد على المصادر المتاحة عبر محرك البحث.
+    </div>
+
+  </div>
+
+  <script>
+    async function searchNumber() {
+
+      const phone = document.getElementById("phone").value.trim();
+      const button = document.getElementById("searchButton");
+      const status = document.getElementById("status");
+      const results = document.getElementById("results");
+
+      results.innerHTML = "";
+
+      if (!phone) {
+        status.innerHTML =
+          '<span class="error">اكتب رقم الجوال أولاً.</span>';
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "جاري البحث...";
+      status.textContent = "جاري البحث عن الرقم...";
+      
+      try {
+
+        const response = await fetch("/api/search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            phone: phone
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error || "حدث خطأ أثناء البحث"
+          );
+        }
+
+        status.innerHTML =
+          '<span class="success">تم الانتهاء من البحث</span>';
+
+        showResults(data);
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.innerHTML =
+          '<span class="error">' +
+          (error.message || "تعذر الاتصال بخدمة البحث") +
+          '</span>';
+
+      } finally {
+
+        button.disabled = false;
+        button.textContent = "🔍 بحث";
+      }
+    }
+
+
+    function showResults(data) {
+
+      const results =
+        document.getElementById("results");
+
+      let items = [];
+
+      if (Array.isArray(data)) {
+        items = data;
+      } else if (Array.isArray(data.results)) {
+        items = data.results;
+      } else if (Array.isArray(data.items)) {
+        items = data.items;
+      }
+
+      if (items.length === 0) {
+
+        results.innerHTML = `
+          <div class="result">
+            <div class="result-title">
+              لا توجد نتائج
+            </div>
+
+            <div>
+              لم يتم العثور على نتائج مطابقة للرقم.
+            </div>
+          </div>
+        `;
+
+        return;
+      }
+
+      items.forEach((item) => {
+
+        const title =
+          item.title ||
+          item.name ||
+          "نتيجة البحث";
+
+        const link =
+          item.link ||
+          item.url ||
+          item.html_url ||
+          "#";
+
+        const description =
+          item.description ||
+          item.snippet ||
+          "";
+
+        const div =
+          document.createElement("div");
+
+        div.className = "result";
+
+        div.innerHTML = `
+          <div class="result-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <div style="margin-bottom:8px;">
+            ${escapeHtml(description)}
+          </div>
+
+          ${
+            link !== "#"
+            ? `<a href="${escapeAttribute(link)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                 فتح المصدر
+               </a>`
+            : ""
+          }
+        `;
+
+        results.appendChild(div);
+      });
+    }
+
+
+    function escapeHtml(text) {
+
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    function escapeAttribute(text) {
+
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+  </script>
+
+</body>
+</html>
