@@ -2,212 +2,265 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>فحص انتشار رقم الجوال</title>
+  <title>البحث عن أرقام الشركات | VipEr</title>
 
   <style>
     * {
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
     }
 
     body {
       margin: 0;
-      background: #0f1115;
-      color: white;
       min-height: 100vh;
+      background: #0d0f14;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
     }
 
     .container {
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-      padding: 25px 18px;
-    }
-
-    .header {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 30px;
+      width: min(92%, 700px);
+      margin: 0 auto;
+      padding: 50px 0 20px;
     }
 
     .logo {
-      font-size: 55px;
+      text-align: center;
+      font-size: 65px;
       margin-bottom: 10px;
     }
 
     h1 {
-      margin: 0;
-      font-size: 28px;
+      text-align: center;
+      font-size: 32px;
+      margin: 10px 0;
     }
 
-    .description {
-      color: #aeb4c0;
+    .subtitle {
+      text-align: center;
+      color: #9da3ad;
+      font-size: 17px;
       line-height: 1.8;
-      margin-top: 12px;
+      margin-bottom: 30px;
     }
 
     .card {
-      background: #191d24;
-      border: 1px solid #292f39;
-      border-radius: 18px;
-      padding: 20px;
+      background: #181c23;
+      border: 1px solid #303642;
+      border-radius: 24px;
+      padding: 25px;
     }
 
     label {
       display: block;
-      margin-bottom: 10px;
+      font-size: 18px;
       font-weight: bold;
+      margin-bottom: 10px;
     }
 
     input {
       width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid #3a414d;
-      background: #0e1014;
-      color: white;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid #3c4350;
+      background: #0d0f14;
+      color: #ffffff;
       font-size: 18px;
-      direction: ltr;
-      text-align: left;
       outline: none;
     }
 
     input:focus {
-      border-color: #3b82f6;
+      border-color: #3978ed;
+    }
+
+    input::placeholder {
+      color: #6f7784;
     }
 
     button {
       width: 100%;
-      margin-top: 15px;
-      padding: 16px;
+      margin-top: 16px;
+      padding: 18px;
       border: 0;
-      border-radius: 12px;
-      background: #2878f0;
-      color: white;
-      font-size: 18px;
+      border-radius: 14px;
+      background: #3978ed;
+      color: #ffffff;
+      font-size: 20px;
       font-weight: bold;
       cursor: pointer;
     }
 
+    button:active {
+      transform: scale(0.99);
+    }
+
     button:disabled {
       opacity: 0.6;
+      cursor: wait;
     }
 
     #status {
-      margin-top: 18px;
       text-align: center;
-      color: #b7beca;
-    }
-
-    .results {
       margin-top: 20px;
+      color: #aeb5c0;
+      line-height: 1.7;
     }
 
     .result {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
       background: #11141a;
-      border: 1px solid #303743;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 12px;
+      border: 1px solid #2e3541;
     }
 
     .result-title {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .result-description {
+      color: #aeb5c0;
+      line-height: 1.7;
+      margin: 8px 0;
+    }
+
+    .phone {
+      display: block;
+      font-size: 22px;
+      color: #65a0ff;
       font-weight: bold;
       margin-bottom: 8px;
+      direction: ltr;
+      text-align: left;
     }
 
-    .result a {
-      color: #55a0ff;
-      word-break: break-all;
+    .source {
+      display: block;
+      color: #7fa9ff;
       text-decoration: none;
+      margin-top: 10px;
+      word-break: break-all;
+      direction: ltr;
+      text-align: left;
     }
 
-    .success {
-      color: #55d68a;
+    .source:hover {
+      text-decoration: underline;
     }
 
-    .error {
-      color: #ff6b6b;
-    }
-
-    .footer {
+    .empty {
       text-align: center;
-      color: #777f8c;
+      color: #ff9b9b;
+      padding: 20px;
+      line-height: 1.8;
+    }
+
+    .copyright {
+      text-align: center;
       margin-top: 30px;
-      font-size: 13px;
+      padding: 20px 10px;
+      color: #8f96a3;
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding-top: 35px;
+      }
+
+      .logo {
+        font-size: 55px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .card {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <main class="container">
 
-    <div class="header">
-      <div class="logo">🔎</div>
+    <div class="logo">🔎</div>
 
-      <h1>فحص انتشار رقم الجوال</h1>
+    <h1>البحث عن أرقام الشركات</h1>
 
-      <p class="description">
-        أدخل رقم الجوال لمعرفة النتائج العامة التي تظهر عنه
-        في محركات البحث.
-      </p>
+    <div class="subtitle">
+      اكتب اسم الشركة أو المنصة للبحث عن أرقام الهواتف
+      المنشورة للعامة على الإنترنت.
     </div>
 
-    <div class="card">
+    <section class="card">
 
-      <label for="phone">
-        رقم الجوال
+      <label for="company">
+        اسم الشركة أو المنصة
       </label>
 
       <input
-        id="phone"
-        type="tel"
-        inputmode="tel"
-        placeholder="مثال: 9665XXXXXXXX"
+        id="company"
+        type="text"
+        placeholder="مثال: stc"
         autocomplete="off"
       >
 
-      <button id="searchButton" onclick="searchNumber()">
-        🔍 بحث
+      <button id="searchButton">
+        بحث 🔎
       </button>
 
       <div id="status"></div>
 
-      <div id="results" class="results"></div>
+      <div id="results"></div>
 
-    </div>
+    </section>
 
-    <div class="footer">
-      أداة بحث عامة — النتائج تعتمد على المصادر المتاحة عبر محرك البحث.
-    </div>
+    <footer class="copyright">
+      © 2026 VipEr — جميع الحقوق محفوظة
+    </footer>
 
-  </div>
+  </main>
 
   <script>
-    async function searchNumber() {
+    const companyInput = document.getElementById("company");
+    const searchButton = document.getElementById("searchButton");
+    const statusBox = document.getElementById("status");
+    const resultsBox = document.getElementById("results");
 
-      const phone = document.getElementById("phone").value.trim();
-      const button = document.getElementById("searchButton");
-      const status = document.getElementById("status");
-      const results = document.getElementById("results");
+    searchButton.addEventListener("click", searchCompany);
 
-      results.innerHTML = "";
+    companyInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        searchCompany();
+      }
+    });
 
-      if (!phone) {
-        status.innerHTML =
-          '<span class="error">اكتب رقم الجوال أولاً.</span>';
+    async function searchCompany() {
+
+      const company = companyInput.value.trim();
+
+      resultsBox.innerHTML = "";
+
+      if (!company) {
+        statusBox.textContent =
+          "اكتب اسم الشركة أو المنصة أولاً";
         return;
       }
 
-      button.disabled = true;
-      button.textContent = "جاري البحث...";
-      status.textContent = "جاري البحث عن الرقم...";
-      
+      searchButton.disabled = true;
+      statusBox.textContent = "جاري البحث...";
+
       try {
 
         const response = await fetch("/api/search", {
@@ -216,7 +269,7 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            phone: phone
+            company: company
           })
         });
 
@@ -228,126 +281,134 @@
           );
         }
 
-        status.innerHTML =
-          '<span class="success">تم الانتهاء من البحث</span>';
+        statusBox.textContent =
+          `تم البحث عن: ${data.company}`;
 
-        showResults(data);
+        renderResults(data);
 
       } catch (error) {
 
-        console.error(error);
+        statusBox.textContent = "";
 
-        status.innerHTML =
-          '<span class="error">' +
-          (error.message || "تعذر الاتصال بخدمة البحث") +
-          '</span>';
+        resultsBox.innerHTML = `
+          <div class="empty">
+            ${escapeHtml(error.message)}
+          </div>
+        `;
 
       } finally {
 
-        button.disabled = false;
-        button.textContent = "🔍 بحث";
+        searchButton.disabled = false;
+
       }
     }
 
+    function renderResults(data) {
 
-    function showResults(data) {
+      const phones = data.phones || [];
+      const results = data.results || [];
 
-      const results =
-        document.getElementById("results");
+      if (phones.length > 0) {
 
-      let items = [];
+        const title = document.createElement("div");
 
-      if (Array.isArray(data)) {
-        items = data;
-      } else if (Array.isArray(data.results)) {
-        items = data.results;
-      } else if (Array.isArray(data.items)) {
-        items = data.items;
-      }
+        title.className = "result";
 
-      if (items.length === 0) {
-
-        results.innerHTML = `
-          <div class="result">
-            <div class="result-title">
-              لا توجد نتائج
-            </div>
-
-            <div>
-              لم يتم العثور على نتائج مطابقة للرقم.
-            </div>
-          </div>
-        `;
-
-        return;
-      }
-
-      items.forEach((item) => {
-
-        const title =
-          item.title ||
-          item.name ||
-          "نتيجة البحث";
-
-        const link =
-          item.link ||
-          item.url ||
-          item.html_url ||
-          "#";
-
-        const description =
-          item.description ||
-          item.snippet ||
-          "";
-
-        const div =
-          document.createElement("div");
-
-        div.className = "result";
-
-        div.innerHTML = `
+        title.innerHTML = `
           <div class="result-title">
-            ${escapeHtml(title)}
+            📞 أرقام الهواتف التي تم العثور عليها
           </div>
-
-          <div style="margin-bottom:8px;">
-            ${escapeHtml(description)}
-          </div>
-
-          ${
-            link !== "#"
-            ? `<a href="${escapeAttribute(link)}"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                 فتح المصدر
-               </a>`
-            : ""
-          }
         `;
 
-        results.appendChild(div);
-      });
+        resultsBox.appendChild(title);
+
+        phones.forEach(function(phone) {
+
+          const div = document.createElement("div");
+
+          div.className = "result";
+
+          div.innerHTML = `
+            <span class="phone">
+              ${escapeHtml(phone)}
+            </span>
+          `;
+
+          resultsBox.appendChild(div);
+
+        });
+
+      } else {
+
+        const empty = document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.innerHTML = `
+          لم يتم العثور على رقم هاتف في النتائج الحالية.
+          <br>
+          جرّب اسم الشركة بشكل أوضح.
+        `;
+
+        resultsBox.appendChild(empty);
+      }
+
+      if (results.length > 0) {
+
+        const title = document.createElement("div");
+
+        title.className = "result";
+
+        title.innerHTML = `
+          <div class="result-title">
+            🔗 مصادر البحث
+          </div>
+        `;
+
+        resultsBox.appendChild(title);
+
+        results.forEach(function(item) {
+
+          const div = document.createElement("div");
+
+          div.className = "result";
+
+          const safeUrl = escapeHtml(item.url || "");
+
+          div.innerHTML = `
+            <div class="result-title">
+              ${escapeHtml(item.title || "بدون عنوان")}
+            </div>
+
+            <div class="result-description">
+              ${escapeHtml(item.description || "")}
+            </div>
+
+            <a
+              class="source"
+              href="${safeUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🔗 فتح المصدر
+            </a>
+          `;
+
+          resultsBox.appendChild(div);
+
+        });
+      }
     }
 
+    function escapeHtml(value) {
 
-    function escapeHtml(text) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-
-    function escapeAttribute(text) {
-
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
     }
   </script>
 
