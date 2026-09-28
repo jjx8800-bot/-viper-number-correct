@@ -51,7 +51,7 @@ async function braveSearch(query) {
     !BRAVE_API_KEY ||
     BRAVE_API_KEY === "BSAgVUke7T8k_ndidhQ8TRs2jV2kfb1"
   ) {
-    throw new Error("BSAgVUke7T8k_ndidhQ8TRs2jV2kfb1");
+    throw new Error("لم يتم وضع مفتاح Brave API");
   }
 
   const url =
